@@ -8,16 +8,25 @@
     <title>Ejercicio 18</title>
 </head>
 <body>
-    
+
     <?php
-        $palabras = ["Frutas","Deportes","Idiomas","Manzana","Futbol","Español","Naranja","Tenis","Inglés","Sandia","Baloncesto","Francés","Fresa","Beisbol","Italiano"];
+        $palabras = [
+            "Frutas","Deportes","Idiomas",
+            "Manzana","Futbol","Español",
+            "Naranja","Tenis","Inglés",
+            "Sandia","Baloncesto","Francés",
+            "Fresa","Beisbol","Italiano"
+                ];
         $columnas = 3;
-        echo "<table><tr>";
-            for($i = 0; $i < sizeof($palabras); $i++){
-                if($i != 0 && !($i % $columnas))echo "</tr><tr>";
-                echo "<th>".$palabras[$i]."</th>";
-            }
-        echo "</tr></table>";
+
+        echo "<table><tbody><tr>";
+
+        foreach($palabras as $i => $palabra){
+            if($i != 0 && !($i % $columnas))echo "</tr><tr>";
+            echo "<th>$palabra</th>";
+        }
+        
+        echo "</tr></tbody></table>";
     ?>
 
 </body>
