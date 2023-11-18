@@ -11,7 +11,7 @@
     
     <?php
         $multiplo = 7;
-        for($i = 1; $i <= 20 ; $i++)echo "Numero ".$i." * ".$multiplo." = ".($i*$multiplo)."<br>";
+        for($i = 1; $i <= 20 ; $i++)echo "Numero $i * $multiplo = ".($i*$multiplo)."<br>";
     ?>
 
 </body>

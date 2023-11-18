@@ -10,7 +10,7 @@
 <body>
     
     <?php
-        for($i = 1; $i <= 30 ; $i++)echo "Numero ".$i." ^2 = ".pow($i,2)."<br>";
+        for($i = 1; $i <= 30 ; $i++)echo "Numero $i ^2 = ".pow($i,2)."<br>";
     ?>
 
 </body>

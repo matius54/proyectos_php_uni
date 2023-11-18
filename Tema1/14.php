@@ -12,7 +12,7 @@
     <?php
         $unArray = array();
         while(sizeof($unArray)<100)array_push($unArray,"valores");
-        foreach($unArray as $el)echo $el.", ";
+        foreach($unArray as $el)echo "$el, ";
     ?>
 
 </body>

@@ -13,7 +13,7 @@
         $numero = 5;
         $factorial = 1;
         for($i=0;$i<$numero;$i++)$factorial*=($numero-$i);
-        echo "Factorial de ".$numero." = ".$factorial;
+        echo "Factorial de $numero = $factorial";
     ?>
 
 </body>

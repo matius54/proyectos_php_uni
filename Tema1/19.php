@@ -18,7 +18,7 @@
                 $factorial*=($numero-$i);
             return $factorial;
         }
-        echo "Factorial de ".$numero." = ".factorial($numero);
+        echo "Factorial de $numero = ".factorial($numero);
     ?>
 
 </body>

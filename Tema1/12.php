@@ -13,17 +13,17 @@
         $numeros = array(41,4,784,8,14);
         $buscar = 4;
         echo "<h2>Recorrerlo y mostrarlo.</h2>";
-        foreach($numeros as $n)echo $n."<br>";
+        foreach($numeros as $n)echo "$n<br>";
 
         echo "<h2>Ordenarlo y mostrarlo.</h2>";
         sort($numeros);
-        foreach($numeros as $n)echo $n."<br>";
+        foreach($numeros as $n)echo "$n<br>";
 
         echo "<h2>Mostrará su longitud.</h2>";
         echo sizeof($numeros);
 
         echo "<h2>Buscar en el vector.</h2>";
-        echo "Numero ".$buscar." ";
+        echo "Numero $buscar ";
         if(!in_array($buscar,$numeros))echo "no ";
         echo "esta entre los numeros";
     ?>

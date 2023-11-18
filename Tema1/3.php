@@ -12,7 +12,7 @@
     <?php
         for($i = 1; $i <= 30 ; $i++){
             $cuadrado = pow($i,2);
-            echo "Numero ".$i." ^2 = ".$cuadrado;
+            echo "Numero $i ^2 = $cuadrado";
             if($cuadrado % 2){
                 echo " y es impar";
             }else{

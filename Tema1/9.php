@@ -12,8 +12,8 @@
     <?php
         $numero_min = 1;
         $numero_max = 100;
-        echo "<h1>Numeros pares entre el ".$numero_min." y el ".$numero_max."</h1>";
-        for($i = $numero_min;$i <= $numero_max;$i ++)if(!($i%2))echo $i.", ";
+        echo "<h1>Numeros pares entre el $numero_min y el $numero_max</h1>";
+        for($i = $numero_min;$i <= $numero_max;$i ++)if(!($i%2))echo "$i, ";
     ?>
 
 </body>

@@ -10,10 +10,10 @@
 <body>
     
     <?php
-        $numero = $_GET["numero"];
+        $numero = isset($_GET["numero"]) ? $_GET["numero"] : 0;
         $numero = intval($numero);
         echo "<h1>Tabla de multiplicar del ".$numero."</h1>";
-        for($i = 1; $i <= 10 ; $i++)echo $numero." x ".$i." = ".($i * $numero)."<br>";
+        for($i = 1; $i <= 10 ; $i++)echo "$numero x $i = ".($i * $numero)."<br>";
     ?>
 
 </body>
