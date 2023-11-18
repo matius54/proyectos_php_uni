@@ -14,7 +14,7 @@
         $columnas = 3;
         echo "<table><tr>";
             for($i = 0; $i < sizeof($palabras); $i++){
-                if(!($i%$columnas))echo "</tr><tr>";
+                if($i != 0 && !($i % $columnas))echo "</tr><tr>";
                 echo "<th>".$palabras[$i]."</th>";
             }
         echo "</tr></table>";
