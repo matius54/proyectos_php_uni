@@ -10,6 +10,8 @@
 <body>
 
     <?php
+
+        $arrayasda = array();
         $palabras = [
             "Frutas","Deportes","Idiomas",
             "Manzana","Futbol","Español",
@@ -20,12 +22,10 @@
         $columnas = 3;
 
         echo "<table><tbody><tr>";
-
         foreach($palabras as $i => $palabra){
             if($i != 0 && !($i % $columnas))echo "</tr><tr>";
             echo "<th>$palabra</th>";
         }
-        
         echo "</tr></tbody></table>";
     ?>
 

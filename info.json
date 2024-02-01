@@ -1,0 +1,184 @@
+[
+    {
+        "name":"Tema1",
+        "info":"Desarrolle los ejercicios aprendidos en los Fundamentos de PHP",
+        "desc":"Crea una carpeta llamado Tema1 en la cuenta de hosting recientemente creada y realice los ejercicios que a continuación se enumera. Luego pegue el enlace en el siguiente cuadro de texto. Coloque el nombre del Proyecto y el password del proyecto.",
+        "exercises":[
+            {
+                "name":"Variables",
+                "steps":["Crea dos variables cuyo nombre sea “uno” y “dos” e imprimirlas por  pantalla. Pon un comentario con el tipo de dato que contienen."]
+            },
+            {
+                "name":"Cuadrados",
+                "steps":["Escribe un programa que imprima por pantalla los cuadrados (el  número multiplicado por sí mismo) de los 30 primeros números naturales. "]
+            },
+            {
+                "name":"Cuadrados++",
+                "steps":["Modifica el ejercicio anterior para que muestre al lado de cada cuadrado si es un número par o impar. "]
+            },
+            {
+                "name":"Numero x 20",
+                "steps":["Escribe un programa que multiplique los 20 primeros números  naturales. "]
+            },
+            {
+                "name":"GET 2 tabla de multiplicar",
+                "steps":["Imprimir por pantalla la tabla de multiplicar del número pasado en un  parámetro GET por la URL. "]
+            },
+            {
+                "name":"Los meses del año",
+                "steps":["Crear un array llamado meses y que almacene el nombre de los doce  meses del año. Recorrerlo con FOR para mostrar por pantalla los doce nombres. "]
+            },
+            {
+                "name":"Los meses del año (foreach)",
+                "steps":["Igual que el anterior pero utilizando el foreach. "]
+            },
+            {
+                "name":"Factoriales",
+                "steps":["Escribir un programa que calcule el factorial de 5. "]
+            },
+            {
+                "name":"Solo numeros pares",
+                "steps":["Mostrar todos los números pares que hay entre el 1 y el 100. "]
+            },
+            {
+                "name":"GET 2 multiplos",
+                "steps":["Mostrar los números múltiplos de un número pasado por la URL que  hay del 1 al 100. "]
+            },
+            {
+                "name":"¿Este numero es bueno?",
+                "steps":["Un número es bueno si y sólo si la suma de sus divisores sin contarse  el mismo da ese número. Programa que calcule si un número es bueno o no. "]
+            },
+            {
+                "name":"Arrays",
+                "steps":["Hacer un programa que tenga un array de 5 números enteros y hacer  lo siguiente con él: Recorrerlo y mostrarlo, Ordenarlo y mostrarlo, Mostrará su longitud, Buscar en el vector."]
+            },
+            {
+                "name":"Doxeado",
+                "steps":[" Escribe un programa que muestre la dirección IP del usuario que  visita nuestra web y si usa Firefox darle la enhorabuena. "]
+            },
+            {
+                "name":"Array infinito",
+                "steps":["Escribe un programa que añade valores a un array mientras que su  longitud sea menor a 100 y después que se muestre la información del array por  pantalla. "]
+            },
+            {
+                "name":"",
+                "steps":[]
+            },
+            {
+                "name":"Esta vacio",
+                "steps":["Escribe un programa que compruebe si una variable está vacía y si  está vacía, rellenarla con texto en minúsculas y mostrarlo convertido a mayúsculas  en negrita. "]
+            },
+            {
+                "name":"Variables++",
+                "steps":[" Crea un script PHP que tenga tres variables, una tipo array, otra tipo  string y otra boleana y que imprima un mensaje según el tipo de variable que sea."]
+            },
+            {
+                "name":"Tabla",
+                "steps":["Crea un array con el contenido de la siguiente tabla"]
+            },
+            {
+                "name":"Factoriales++",
+                "steps":["El cálculo del factorial se realiza en un bucle que va disminuyendo el  valor de una variable y multiplicando todos los valores entre sí, como ya hemos  visto anteriormente. "]
+            },
+            {
+                "name":"Fecha actual",
+                "steps":["Utiliza una función de PHP para mostrar la fecha actual por pantalla. "]
+            }
+        ]
+    },
+    {
+        "name":"Tema2",
+        "info":"Desarrolle los formularios con las funciones de PHP siguiendo los siguientes puntos:",
+        "desc":"",
+        "exercises":[
+            {
+                "name":"Creación de un formulario básico",
+                "steps":[
+                    "Crea un formulario HTML con dos campos de texto: nombre y correo electrónico.",
+                    "Cuando se envíe el formulario, muestra en pantalla los valores ingresados."
+                ]
+            },
+            {
+                "name":"Validación de campos obligatorios",
+                "steps":[
+                    "Los campos de nombre y correo electrónico sean obligatorios.",
+                    "Si alguno de los campos no se completa, muestra un mensaje de error."
+                ]
+            },
+            {
+                "name":"Validación de dirección de correo electrónico",
+                "steps":[
+                    "Agrega una validación adicional al campo de correo electrónico para asegurarte de que sea una dirección de correo válida.",
+                    "Si la dirección no es válida, muestra un mensaje de error."
+                ]
+            },
+            {
+                "name":"Uso de casillas de verificación y de opción",
+                "steps":[
+                    "Crea un formulario con casillas de verificación para seleccionar uno o varios elementos.",
+                    "Agrega también botones de opción para seleccionar una opción exclusiva.",
+                    "Muestra en pantalla los valores seleccionados al enviar el formulario."
+                ]
+            },
+            {
+                "name":"Uso de listas desplegables (select)",
+                "steps":[
+                    "Crea un formulario con una lista desplegable que contenga diferentes opciones.",
+                    "Cuando se seleccione una opción y se envíe el formulario, muestra en pantalla la opción seleccionada."
+                ]
+            },
+            {
+                "name":"Subida de archivos",
+                "steps":[
+                    "Crea un formulario que permita a los usuarios subir archivos al servidor.",
+                    "Al recibir el archivo, valida que sea de un tipo permitido y muestra un mensaje de éxito o error."
+                ]
+            },
+            {
+                "name":"Uso de sesiones",
+                "steps":[
+                    "Crea un formulario de inicio de sesión con campos de nombre de usuario y contraseña.",
+                    "Verifica que los datos ingresados coincidan con una combinación válida almacenada en una sesión.",
+                    "Muestra un mensaje de éxito o error según el resultado."
+                ]
+            },
+            {
+                "name":"Validación con expresiones regulares",
+                "steps":[
+                    "Mejora el formulario de validación de correo electrónico utilizando expresiones regulares para una validación más precisa."
+                ]
+            },
+            {
+                "name":"Creación de un formulario dinámico",
+                "steps":[
+                    "Crea un formulario que permita agregar dinámicamente campos de texto adicionales al hacer clic en un botón \"Agregar campo\".",
+                    "Permite también eliminar los campos adicionales si ya no son necesarios."
+                ]
+            },
+            {
+                "name":"Uso de AJAX para envío asíncrono",
+                "steps":[
+                    "Mejora uno de los ejercicios anteriores utilizando AJAX para enviar el formulario de manera asíncrona.",
+                    "Muestra una respuesta en pantalla sin recargar la página."
+                ]
+            }    
+        ]
+    },
+    {
+        "name":"Examen1",
+        "info":"Primer examen de electiva php",
+        "desc":"",
+        "exercises":[
+            {
+                "name":"ejercicio 1",
+                "extra":[{"suff":"b","name":"Versión 2"}],
+                "steps":[]
+            },
+            {
+                "name":"ejercicio 2",
+                "extra":[{"suff":"b","name":"Versión 2"}],
+                "steps":[]
+            }
+        ]
+    }
+]
