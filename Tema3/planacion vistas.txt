@@ -1,0 +1,33 @@
+vistas e interaccion (parametros GET)
+
+* modo paginador
+sin nada
+page = Numero de pagina (por defecto 1)
+search = buscar (termino buscado)
+order = constantes para ordenar los resultados (funciona solo con search)
+
+* modo inspector
+id = identificador unico de ese elemento
+
+* los otros modos
+action = accion a realizar
+...
+
+* orden de evaluacion logico
+id, action, [nada], page, search -> order
+
+
+estructura tipica: <url> ? <key> = <value> & <key> = <value> & <key> = <value>
+
+decodificar por ? luego & y por ultimo = para obtener array de GET
+(PHP ya se encarga de esto en $_GET asi que nose en que pienso)
+
+ejemplo
+http://localhost/user.php?id=12 (modo inspector)
+http://localhost/user.php?accion=user_login (formulario de login)
+http://localhost/user.php?page=2&search=José&order=asc (modo paginador + busqueda)
+http://localhost/user.php (modo paginador con valores por defecto)
+
+la misma historia se repite para task.php
+http://localhost/task.php (modo paginador con valores por defecto)
+http://localhost/task.php?accion=task_new (formulario de nueva tarea)

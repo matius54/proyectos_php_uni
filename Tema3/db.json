@@ -1,0 +1,39 @@
+{
+    "host":"localhost",
+    "username":"root",
+    "password":"",
+    "database":"crud",
+    "showErrors":true,
+    "structure":{
+        "user":[
+            "id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY",
+            "username VARCHAR(256) NOT NULL UNIQUE",
+            "hash BINARY(32) NOT NULL",
+            "salt BINARY(16) NOT NULL",
+            "email VARCHAR(100)",
+            "created_at BIGINT UNSIGNED NOT NULL"
+        ],
+        "task":[
+            "id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY",
+            "user_id INT UNSIGNED NOT NULL",
+            "title VARCHAR(255) NOT NULL",
+            "description TEXT",
+            "completed BOOLEAN DEFAULT false",
+            "FOREIGN KEY (user_id) REFERENCES user(id)",
+            "created_at BIGINT UNSIGNED NOT NULL"
+        ],
+        "session":[
+            "id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY",
+            "user_id INT UNSIGNED UNIQUE NOT NULL",
+            "session BINARY(64) NOT NULL",
+            "temporal BOOLEAN DEFAULT false",
+            "FOREIGN KEY (user_id) REFERENCES user(id)",
+            "created_at BIGINT UNSIGNED NOT NULL",
+            "last_access BIGINT UNSIGNED NOT NULL"
+        ]
+    },
+    "finally": [
+        "INSERT INTO user (username, hash, salt, email, created_at) VALUES (\"Admin\",UNHEX(\"73fd6713fac96322de2ef27314c8056bbf014885f4498171b745b567a741c43f\"),UNHEX(\"135e32ae3ca7226aa073ab5f9f1c853c\"),\"admin@localhost.pc\",1709174942981)",
+        "INSERT INTO task (user_id, title, created_at) VALUES (1,\"Endure Existence\",1709174942981)"
+    ]
+}

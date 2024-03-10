@@ -1,0 +1,59 @@
+{
+    "host":"localhost",
+    "username":"root",
+    "password":"",
+    "database":"db_botimendo",
+    "showErrors":true,
+    "structure":{
+        "cargo":[
+            "id INT NOT NULL PRIMARY KEY AUTO_INCREMENT",
+            "descripcion VARCHAR(20) DEFAULT NULL"
+        ],
+        "empleado":[
+            "id INT NOT NULL PRIMARY KEY AUTO_INCREMENT",
+            "user VARCHAR(50) NOT NULL",
+            "password VARCHAR(50) NOT NULL",
+            "imagen_id INT",
+            "cargo_id INT NOT NULL",
+            "usuario_id NOT NULL"
+        ],
+        "factura":[
+            "id INT NOT NULL PRIMARY KEY AUTO_INCREMENT",
+            "venta_id INT"
+        ],
+        "imagen":[
+            "id INT NOT NULL PRIMARY KEY AUTO_INCREMENT",
+            "nombre VARCHAR(30)",
+            "datos BLOB NOT NULL"
+        ],
+        "producto":[
+            "id INT NOT NULL PRIMARY KEY AUTO_INCREMENT",
+            "nombre VARCHAR(50) NOT NULL",
+            "codigo VARCHAR(10) NOT NULL",
+            "precio FLOAT NOT NULL",
+            "descripcion TEXT NOT NULL",
+            "tipo ENUM('litros','metros','unidades') NOT NULL",
+            "stock FLOAT",
+            "imagen_id INT"
+        ],
+        "usuario":[
+            "id INT NOT NULL PRIMARY KEY AUTO_INCREMENT",
+            "nombre VARCHAR(30) NOT NULL",
+            "apellido VARCHAR(30) NOT NULL",
+            "cedula VARCHAR(12) NOT NULL",
+            "direccion TEXT NOT NULL",
+            "telefono VARCHAR(15)",
+            "tipo ENUM('cliente','empleado') NOT NULL"
+        ],
+        "venta":[
+            "id INT NOT NULL PRIMARY KEY AUTO_INCREMENT",
+            "fecha DATETIME",
+            "usuario_id INT",
+            "producto_id INT",
+            "total FLOAT"
+        ]
+    },
+    "finally": [
+
+    ]
+}

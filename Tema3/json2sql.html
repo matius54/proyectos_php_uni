@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        :root {
+            color-scheme: dark;
+        }
+    </style>
+</head>
+<body>
+    <code></code>
+</body>
+<script>
+async function fetchJSON(url){
+    const response = await fetch(url,{"cache-control":"no-cache"});
+    if(!response.ok)throw new Error(`Fetch error: HTTP code: ${response.status} ${response.statusText}`);
+    return await response.json();
+}
+</script>
+<script>
+    const canvas = document.querySelector("code");
+    fetchJSON("./jesu_crud.json")
+    .then(json => {
+        const data = json.structure;
+        let sql = "";
+        for(table in data){
+            if(true){
+                sql += `CREATE TABLE ${table} \n(`;
+                sql += data[table].join(", \n");
+                sql += `);\n\n`;
+            }else{
+                sql += `Table ${table} {\n`;
+                //sql += data[table].join("\n");
+                data[table].forEach(element => {
+                    const sqlEl = element.split(" ");
+                    if(sqlEl[0]==="FOREIGN" && sqlEl[1]==="KEY"){
+                        
+                    }else{
+                        sql+=sqlEl.splice(0,2).join(" ")+"";
+                        if(sqlEl.length)sql+=" ["+sqlEl.join(", ")+"]";
+                        sql+="\n";
+                        console.log();
+                        console.log(sqlEl)
+                    }
+                });
+                sql += `\n}\n\n`;
+            }
+        }
+        canvas.innerText = sql;
+    });
+</script>
+</html>

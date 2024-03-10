@@ -165,6 +165,15 @@
         ]
     },
     {
+        "name":"Tema3",
+        "info":"Subir la actividad realizada en clases para completar el ejercicio de CRUD de Tareas",
+        "desc":"",
+        "exercises":[{
+                "name":"Actividad de CRUD",
+                "steps":[]
+            }]
+    },
+    {
         "name":"Examen1",
         "info":"Primer examen de electiva php",
         "desc":"",

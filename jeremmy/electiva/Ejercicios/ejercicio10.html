@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../style.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Ejercicios</title>
+  </head>
+  <body>
+    <main class="contenido">
+      <a href="../index.php" class="volver"><== VOLVER</a>
+      <ul>
+        <li>
+          Mejora uno de los ejercicios anteriores utilizando AJAX para enviar el
+          formulario de manera asíncrona.
+        </li>
+        <li>Muestra una respuesta en pantalla sin recargar la página.</li>
+      </ul>
+      <form action="" method="post" id="formulario">
+        <fieldset class="formulario">
+          <legend>AJAX</legend>
+          <div>
+            <label for="name">Nombre</label>
+            <input type="text" name="name" id="name" />
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" />
+          </div>
+          <input type="submit" value="Enviar">
+        </fieldset>
+      </form>
+      <fieldset class="mensaje" id="respuesta">
+        <legend>Mensaje</legend>
+      </fieldset>
+    </main>
+
+    <script>
+      $(document).ready(function () {
+        $("#formulario").submit(function (e) {
+          e.preventDefault();
+
+          var nombre = $("#name").val();
+          var correo = $("#email").val();
+
+          $.ajax({
+            type: "POST",
+            url: "procesar.php",
+            data: {
+              nombre: nombre,
+              correo: correo,
+            },
+            success: function (data) {
+              $("#respuesta").html(data);
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

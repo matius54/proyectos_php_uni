@@ -1,5 +1,5 @@
 <?php include "start.php" ?> 
-<form method="POST" class="cnt" autocomplete="off">
+<form method="POST" class="cnt">
     <fieldset>
         <legend>Seleccion multiple</legend>
         <label>Opcion 1: <input name="1_a" value="1" type="checkbox"></label>

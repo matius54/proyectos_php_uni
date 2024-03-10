@@ -1,0 +1,5 @@
+email español, gmail y yahoo
+(\w|\d|[ñáéíóúÑÁÉÍÓÚ!&*+\-_?])+@(gmail|yahoo).com
+
+soporte para números negativos y una longitud entre 1 y 10, solo números enteros de 32 bits
+-?[0-9]{1,10}
