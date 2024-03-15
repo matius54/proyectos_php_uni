@@ -15,7 +15,7 @@
             if($page < 1) $page = 1;
             [$itemCount, $lastPage] = self::getTotalPages($name);
             if($page > $lastPage) $page = $lastPage;
-            $items = self::paginateQuery($page, $sql, $args);
+            $items = $lastPage ? self::paginateQuery($page, $sql, $args) : [];
             $navigator = self::show($page, $lastPage, $itemCount);
             return [$items, $navigator];
         }
@@ -25,7 +25,7 @@
             $offset = ($page-1) * self::$ItemsPerPage;
 
             $db = DB::getInstance();
-            $db->execute($sql." LIMIT ? OFFSET ?",array_merge($args,[$limit, $offset]));
+            $db->execute($sql." ORDER BY id DESC LIMIT ? OFFSET ?",array_merge($args,[$limit, $offset]));
             return $db->fetchAll(htmlspecialchars: true);
         }
 
@@ -43,6 +43,7 @@
         }
 
         private static function show($page, $lastPage, $itemCount = null){
+            if($lastPage === 0) return "<i>Lista vacía.</i>";
             $html = "<i>Mostrando página $page de $lastPage";
             if($itemCount !== null) $html .= ", con un total de $itemCount elementos";
             $html .= ".</i>";
