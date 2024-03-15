@@ -22,6 +22,16 @@
             "FOREIGN KEY (user_id) REFERENCES user(id)",
             "created_at BIGINT UNSIGNED NOT NULL"
         ],
+        "product":[
+            "id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY",
+            "user_id INT UNSIGNED NOT NULL",
+            "name VARCHAR(255) NOT NULL",
+            "description TEXT",
+            "quantity INT",
+            "price VARCHAR(256)",
+            "FOREIGN KEY (user_id) REFERENCES user(id)",
+            "created_at BIGINT UNSIGNED NOT NULL"
+        ],
         "session":[
             "id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY",
             "user_id INT UNSIGNED UNIQUE NOT NULL",
@@ -35,5 +45,37 @@
     "finally": [
         "INSERT INTO user (username, hash, salt, email, created_at) VALUES (\"Admin\",UNHEX(\"73fd6713fac96322de2ef27314c8056bbf014885f4498171b745b567a741c43f\"),UNHEX(\"135e32ae3ca7226aa073ab5f9f1c853c\"),\"admin@localhost.pc\",1709174942981)",
         "INSERT INTO task (user_id, title, created_at) VALUES (1,\"Endure Existence\",1709174942981)"
-    ]
+    ],
+    "query":{
+        "username_to_user_id":"SELECT id FROM user WHERE username = ?",
+        "user_id_to_username":"SELECT username FROM user WHERE id = ?",
+        "username_to_salt":"SELECT HEX(salt) AS salt FROM user WHERE username = ?",
+        "hash_to_user_id":"SELECT id FROM user WHERE hash = UNHEX(?)",
+        "user_new":"INSERT INTO user (username, hash, salt, email, created_at) VALUES (?, UNHEX(?), UNHEX(?), ?, ?)",
+        "user_delete":"DELETE FROM user WHERE id = ?",
+        "user_update_data":"UPDATE user SET username = ?, email = ? WHERE id = ?",
+        "user_update_password":"UPDATE user SET hash = UNHEX(?), salt = UNHEX(?) WHERE id = ?",
+        "user_get_by_user_id":"SELECT user.id AS id, username, email, user.created_at as createdAt, session.created_at as lastSession, last_access as lastAccess, user.id = ? as access FROM user LEFT JOIN session ON user.id = user_id WHERE user.id = ?",
+        "user_get_all":"SELECT user.id AS id, username, email, user.created_at as createdAt, session.created_at as lastSession, last_access as lastAccess, user.id = ? as access FROM user LEFT JOIN session ON user.id = user_id",
+        
+        "task_count":"SELECT COUNT(*) FROM task WHERE id = ?",
+        "task_new":"INSERT INTO task (user_id, title, description, created_at) VALUES (?, ?, ?, ?)",
+        "task_get_all":"",
+        "task_get_last_id":"SELECT id FROM task ORDER BY id DESC LIMIT 1",
+        "task_delete":"DELETE FROM task WHERE id = ?",
+        "get_completed_by_id_and_user":"SELECT completed FROM task WHERE id = ? AND user_id = ?",
+        "task_delete_user":"DELETE FROM task WHERE user_id = ?",
+        "task_update":"UPDATE task SET title = ?, description = ? WHERE id = ?",
+        "task_update_completed":"UPDATE task SET completed = ? WHERE id = ?",
+        
+        "product_new":"",
+        "product_get":"",
+        "product_delete":"DELETE FROM session WHERE user_id = ?",
+        "product_update":"",
+        
+        "session_new":"INSERT INTO session (user_id, session, temporal, created_at, last_access) VALUES (?,UNHEX(?),?,?,?)",
+        "session_get":"",
+        "session_delete_by_user_id":"DELETE FROM session WHERE user_id = ?",
+        "session_update":""
+    }
 }

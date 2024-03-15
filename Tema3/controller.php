@@ -13,6 +13,8 @@
     $title = URL::decode("title",$_POST);
     $description = URL::decode("description",$_POST);
     $id = URL::decode("id");
+    $quantity = URL::decode("quantity",$_POST);
+    $price = URL::decode("price",$_POST);
     
     try {
         switch($action){
@@ -64,6 +66,41 @@
                         JSON::sendJson(["error" => true]);
                     }
                 }
+            break;
+            case "product_new":
+                if(
+                    VALIDATE::title($title) && 
+                    VALIDATE::description($description) && 
+                    VALIDATE::int($quantity) && 
+                    VALIDATE::float($price)
+                ){
+                    PRODUCT::new($title, $description, $quantity, $price);
+                }else{
+                    var_dump($title);
+                    var_dump($description);
+                    var_dump($quantity);
+                    var_dump($price);
+                    throw new Error("Los datos NO SON validos");
+                }
+                URL::redirect(URL::baseURI($backURL).URL::query());
+            break;
+            case "product_update":
+                if(
+                    VALIDATE::id($id) &&
+                    VALIDATE::title($title) && 
+                    VALIDATE::description($description) && 
+                    VALIDATE::int($quantity) && 
+                    VALIDATE::float($price)
+                    ){
+                        PRODUCT::update($id, $title, $description, $quantity, $price);
+                    }else{
+                        throw new Error("Los datos NO SON validos");
+                    }
+                URL::redirect(URL::baseURI($backURL).URL::query(unset: ["id"]));
+            break;
+            case "product_delete":
+                if(VALIDATE::id($id)) PRODUCT::delete($id);
+                URL::redirect(URL::baseURI($backURL).URL::query());
             break;
             default:
                 throw new Error("Acción no especificada");

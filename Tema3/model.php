@@ -61,13 +61,7 @@
             $userId = SESSION::verify();
             if($userId){
                 $db = DB::getInstance();
-                if($username == null && $email != null){
-                    $db->execute("UPDATE user SET email = ? WHERE id = ?",[$email, $userId]);
-                }else if($username != null && $email == null){
-                    $db->execute("UPDATE user SET username = ? WHERE id = ?",[$username, $userId]);
-                }else if($username != null && $email != null){
-                    $db->execute("UPDATE user SET username = ?, email = ? WHERE id = ?",[$username, $email, $userId]);
-                }
+                $db->execute("UPDATE user SET username = ?, email = ? WHERE id = ?",[$username, $email, $userId]);
                 return true;
             }
             return false;
@@ -146,14 +140,10 @@
             }
             return -1;
         }
-        static function update($id,$title=null,$description=null){
+        static function update($id,$title,$description){
             if(!($id = self::isValid($id))) return;
             $db = DB::getInstance();
-            if($title != null && $description == null){
-                $db->execute("UPDATE task SET title = ? WHERE id = ?",[$title,$id]);
-            }else if($title == null && $description != null){
-                $db->execute("UPDATE task SET description = ? WHERE id = ?",[$description,$id]);
-            }else if($title != null && $description != null){
+            if($title != null && $description != null){
                 $db->execute("UPDATE task SET title = ?, description = ? WHERE id = ?",[$title,$description,$id]);
             }else{
                 throw new Error("No se han recibido los parametros necesarios");
@@ -191,6 +181,56 @@
         }
         static function getAll() : array {
             $query = "SELECT task.id AS id, title, description, task.created_at AS createdAt, username AS createdBy, completed, task.user_id = ? AS access FROM task JOIN user ON user_id = user.id";
+            $userId = SESSION::verify();
+            return PAGINATOR::paginate($query,[$userId]);
+        }
+    }
+    class PRODUCT {
+        static function isValid($id) {
+            if(!($id = VALIDATE::toInt($id))) return null;
+            $db = DB::getInstance();
+            $db->execute("SELECT COUNT(*) FROM product WHERE id = ?",[$id]);
+            if($db->fetch()["COUNT(*)"] === 1) return $id;
+            return null;
+        }
+        static function new($name, $description, $quantity, $price) : int {
+            $userId = SESSION::verify();
+            if(!$userId) throw new Error("Necesita iniciar sesion para crear un producto");
+            $db = DB::getInstance();
+            $db->beginTransaction();
+            $db->execute("SELECT COUNT(*) FROM product ORDER BY id DESC LIMIT 1");
+            $id = $db->fetch()["COUNT(*)"];
+            $db->execute("INSERT INTO product (user_id, name, description, quantity, price, created_at) VALUES (?, ?, ?, ?, ?, ?)",[$userId,$name,$description,$quantity,$price, TIME::now()]);
+            $db->commit();
+            if(!$db->error()){
+                return $id + 1;
+            }
+            return -1;
+        }
+        static function update($id, $name, $description, $quantity, $price){
+            if(!($id = self::isValid($id))) return;
+            $db = DB::getInstance();
+            $db->execute("UPDATE product SET name = ?, description = ?, quantity = ?, price = ?  WHERE id = ?",[$name,$description,$quantity,$price,$id]);
+            //throw new Error("No se han recibido los parametros necesarios");
+        }
+        static function delete($id){
+            if(!self::isValid($id)) return;
+            $db = DB::getInstance();
+            $db->execute("DELETE FROM product WHERE id = ?",[$id]);
+        }
+        static function get($id) : array {
+            $db = DB::getInstance();
+            $userId = SESSION::verify();
+            $db->execute("SELECT product.id AS id, name, description, quantity, price, product.created_at AS createdAt, product.user_id = ? AS access, user.username AS createdBy FROM product JOIN user ON user_id = user.id WHERE product.id = ?",[$userId, $id]);
+            return $db->fetch(htmlspecialchars: true);
+        }
+        static function getUser($id) : array {
+            $db = DB::getInstance();
+            $db->execute("SELECT COUNT(*) AS totalProducts FROM product WHERE user_id = ?",[$id]);
+            return $db->fetch(htmlspecialchars: true);
+        }
+        static function getAll() : array {
+            $query = "SELECT product.id AS id, name, description, quantity, price, product.created_at AS createdAt, product.user_id = ? AS access, user.username AS createdBy FROM product JOIN user ON user_id = user.id";
             $userId = SESSION::verify();
             return PAGINATOR::paginate($query,[$userId]);
         }

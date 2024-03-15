@@ -88,6 +88,7 @@
             if(!$id) $id = $userId;
             $user = USER::get($id);
             $task = TASK::getUser($id);
+            $product = PRODUCT::getUser($id);
         ?>
         <p>ID del usuario: <i><?php echo $user["id"] ?></i></p>
         <p>Nombre de usuario: <i><?php echo $user["username"] ?></i></p>
@@ -98,6 +99,7 @@
         <p>Último acceso: <i class="unixTimestamp"><?php echo $user["lastAccess"] ?></i></p>
         <p>Número de tareas: <i><?php echo $task["totalTasks"] ?></i></p>
         <p>Número de tareas completadas: <i><?php echo $task["completedTasks"] ?></i></p>
+        <p>Número de productos: <i><?php echo $product["totalProducts"] ?></i></p>
     <?php } else { ?>
         <h2>No hay nada para mostrar</h2>
     <?php }  ?>
