@@ -79,12 +79,19 @@
             }
             return false;
         }
-        public static function int($value){
-            return isset($value) && is_int($value);
+        public static function int(&$value){
+            $regex = "/^\d+$/";
+            if(isset($value) && preg_match($regex,$value)) $value = intval($value);
+            return is_int($value);
         }
         public static function id(&$value){
-            if(is_string($value)) $value = intval($value);
             return self::int($value) && $value > 0;
+        }
+        public static function float(&$value){
+            $regex_dot = "/^\d+(\.\d+)?$/";
+            $regex_comma = "/^\d+(,\d+)?$/";
+            if(preg_match($regex_comma, $value))$value = implode(".",explode(",",$value));
+            return preg_match($regex_dot,$value);
         }
         public static function title($value,$minLength = 1,$maxLength = 255){
             return self::string($value,$maxLength,$minLength);
