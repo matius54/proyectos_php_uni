@@ -26,12 +26,14 @@
     <div>
         <form method="post" action="./controller.php<?php echo URL::query(["action"=>"product_".$action], ref: true) ?>" autocomplete="off">
             <?php
-                if($action == "update" && $id !== null){
+                $cathegory_id = 0;
+                if($action === "update" && $id !== null){
                     $update = PRODUCT::get($id);
                     $name = $update["name"];
                     $description = $update["description"];
                     $quantity = $update["quantity"];
                     $price = $update["price"];
+                    $cathegory_id = intval($update["cathegory_id"]);
                 }
                 include "./components/formInputs/name.php";
                 include "./components/formInputs/description.php";
@@ -41,6 +43,8 @@
                 $dName = "Precio";
                 $name = "price";
                 include "./components/formInputs/float.php";
+                $cathegories = PRODUCT::getCathegories();
+                echo HTML::array2list(array:$cathegories, name: "cathegory_id", title: "Selecciona la categoria", selected: $cathegory_id);
             ?>
             <input type="submit" value="<?php echo $title ?>">
         </form>

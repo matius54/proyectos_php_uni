@@ -193,24 +193,26 @@
             if($db->fetch()["COUNT(*)"] === 1) return $id;
             return null;
         }
-        static function new($name, $description, $quantity, $price) : int {
+        static function new($name, $description, $quantity, $price, $cathegory_id) : int {
+            if(!$cathegory_id) $cathegory_id = null;
             $userId = SESSION::verify();
             if(!$userId) throw new Error("Necesita iniciar sesion para crear un producto");
             $db = DB::getInstance();
             $db->beginTransaction();
             $db->execute("SELECT COUNT(*) FROM product ORDER BY id DESC LIMIT 1");
             $id = $db->fetch()["COUNT(*)"];
-            $db->execute("INSERT INTO product (user_id, name, description, quantity, price, created_at) VALUES (?, ?, ?, ?, ?, ?)",[$userId,$name,$description,$quantity,$price, TIME::now()]);
+            $db->execute("INSERT INTO product (user_id, name, description, quantity, price, cathegory_id, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)",[$userId,$name,$description,$quantity,$price,$cathegory_id, TIME::now()]);
             $db->commit();
             if(!$db->error()){
                 return $id + 1;
             }
             return -1;
         }
-        static function update($id, $name, $description, $quantity, $price){
+        static function update($id, $name, $description, $quantity, $price, $cathegory_id){
+            if(!$cathegory_id) $cathegory_id = null;
             if(!($id = self::isValid($id))) return;
             $db = DB::getInstance();
-            $db->execute("UPDATE product SET name = ?, description = ?, quantity = ?, price = ?  WHERE id = ?",[$name,$description,$quantity,$price,$id]);
+            $db->execute("UPDATE product SET name = ?, description = ?, quantity = ?, price = ?, cathegory_id = ? WHERE id = ?",[$name,$description,$quantity,$price,$cathegory_id,$id]);
             //throw new Error("No se han recibido los parametros necesarios");
         }
         static function delete($id){
@@ -221,7 +223,7 @@
         static function get($id) : array {
             $db = DB::getInstance();
             $userId = SESSION::verify();
-            $db->execute("SELECT product.id AS id, name, description, quantity, price, product.created_at AS createdAt, product.user_id = ? AS access, user.username AS createdBy FROM product JOIN user ON user_id = user.id WHERE product.id = ?",[$userId, $id]);
+            $db->execute("SELECT product.id AS id, name, product.description as description, cathegory.id as cathegory_id, quantity, price, product.created_at AS createdAt, product.user_id = ? AS access, user.username AS createdBy FROM product JOIN user ON user_id = user.id LEFT JOIN cathegory ON cathegory.id = cathegory_id WHERE product.id = ?",[$userId, $id]);
             return $db->fetch(htmlspecialchars: true);
         }
         static function getUser($id) : array {
@@ -230,9 +232,69 @@
             return $db->fetch(htmlspecialchars: true);
         }
         static function getAll() : array {
-            $query = "SELECT product.id AS id, name, description, quantity, price, product.created_at AS createdAt, product.user_id = ? AS access, user.username AS createdBy FROM product JOIN user ON user_id = user.id";
+            $query = "SELECT product.id AS id, name, product.description as description, cathegory.description as cathegory, quantity, price, product.created_at AS createdAt, product.user_id = ? AS access, user.username AS createdBy FROM product JOIN user ON user_id = user.id LEFT JOIN cathegory ON cathegory.id = cathegory_id";
             $userId = SESSION::verify();
             return PAGINATOR::paginate($query,[$userId]);
+        }
+        static function getCathegories() : array {
+            $query = "SELECT id, description FROM cathegory";
+            $db = DB::getInstance();
+            $db->execute($query);
+            $result = $db->fetchAll();
+            $data = [];
+            foreach ($result as $value) {
+                $data[$value["id"]] = $value["description"];
+            }
+            return $data;
+        }
+    }
+    class CATHEGORY {
+        static function isValid($id) {
+            if(!($id = VALIDATE::toInt($id))) return null;
+            $db = DB::getInstance();
+            $db->execute("SELECT COUNT(*) FROM cathegory WHERE id = ?",[$id]);
+            if($db->fetch()["COUNT(*)"] === 1) return $id;
+            return null;
+        }
+        static function new($description) : int {
+            $userId = SESSION::verify();
+            if(!$userId) throw new Error("Necesita iniciar sesion para crear una categoria");
+            $db = DB::getInstance();
+            $db->beginTransaction();
+            $db->execute("SELECT COUNT(*) FROM cathegory ORDER BY id DESC LIMIT 1");
+            $id = $db->fetch()["COUNT(*)"];
+            $db->execute("INSERT INTO cathegory (description, created_at) VALUES (?, ?)",[$description, TIME::now()]);
+            $db->commit();
+            if(!$db->error()){
+                return $id + 1;
+            }
+            return -1;
+        }
+        static function update($id, $description){
+            if(!($id = self::isValid($id))) return;
+            $db = DB::getInstance();
+            $db->execute("UPDATE cathegory SET description = ? WHERE id = ?",[$description, $id]);
+            //throw new Error("No se han recibido los parametros necesarios");
+        }
+        static function delete($id){
+            if(!self::isValid($id)) return;
+            $db = DB::getInstance();
+            $db->execute("DELETE FROM cathegory WHERE id = ?",[$id]);
+        }
+        static function get($id) : array {
+            $db = DB::getInstance();
+            $db->execute("SELECT id, description, created_at as createdAt FROM cathegory WHERE id = ?",[$id]);
+            return $db->fetch(htmlspecialchars: true);
+        }
+        static function getUser($id) : array {
+            $db = DB::getInstance();
+            $db->execute("SELECT id, description, created_at as createdAt FROM cathegory WHERE user_id = ?",[$id]);
+            return $db->fetch(htmlspecialchars: true);
+        }
+        static function getAll() : array {
+            $query = "SELECT id, description, created_at as createdAt FROM cathegory";
+            $userId = SESSION::verify();
+            return PAGINATOR::paginate($query,[]);
         }
     }
     class SESSION {

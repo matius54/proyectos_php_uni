@@ -157,6 +157,29 @@
                 return "<tr><th>".implode("</th><th>",$array)."</th></tr>";
             }
         }
+        
+        public static function array2list(array $array, string $name = "select", ?string $title = null, $selected = null) : string {
+            $result = "<select name=\"$name\">";
+            if($title !== null and is_string($title))
+                $result .= "<option value=\"\">--- $title ---</option>";
+            foreach ($array as $value => $dname) {
+                $result .= "<option ".($selected === $value ? "selected" : "")." value=\"$value\">$dname</option>";
+            }
+            $result .= "</select>";
+            return $result;
+        }
+
+        public static function input(
+            string $label = "input", 
+            string $type = "text", 
+            string $name = "input", 
+            string $value = null, 
+            string $placeholder = null
+        ) : string {
+            if($value === null) $value = "";
+            if($placeholder === null) $placeholder = $value;
+            return "<label>$label: <input name=\"$name\" type=\"$type\" value=\"$value\" placeholder=\"$placeholder\"></label>";
+        }
     }
     class JSON {
         public static function isJson() : bool {

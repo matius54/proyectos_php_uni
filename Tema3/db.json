@@ -22,6 +22,11 @@
             "FOREIGN KEY (user_id) REFERENCES user(id)",
             "created_at BIGINT UNSIGNED NOT NULL"
         ],
+        "cathegory":[
+            "id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY",
+            "description VARCHAR(256)",
+            "created_at BIGINT UNSIGNED NOT NULL"
+        ],
         "product":[
             "id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY",
             "user_id INT UNSIGNED NOT NULL",
@@ -29,6 +34,8 @@
             "description TEXT",
             "quantity INT",
             "price VARCHAR(256)",
+            "cathegory_id INT UNSIGNED",
+            "FOREIGN KEY (cathegory_id) REFERENCES cathegory(id)",
             "FOREIGN KEY (user_id) REFERENCES user(id)",
             "created_at BIGINT UNSIGNED NOT NULL"
         ],

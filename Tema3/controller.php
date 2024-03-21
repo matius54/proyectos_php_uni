@@ -15,6 +15,7 @@
     $id = URL::decode("id");
     $quantity = URL::decode("quantity",$_POST);
     $price = URL::decode("price",$_POST);
+    $cathegory_id = URL::decode("cathegory_id", $_POST);
     
     try {
         switch($action){
@@ -74,12 +75,8 @@
                     VALIDATE::int($quantity) && 
                     VALIDATE::float($price)
                 ){
-                    PRODUCT::new($title, $description, $quantity, $price);
+                    PRODUCT::new($title, $description, $quantity, $price, $cathegory_id);
                 }else{
-                    var_dump($title);
-                    var_dump($description);
-                    var_dump($quantity);
-                    var_dump($price);
                     throw new Error("Los datos NO SON validos");
                 }
                 URL::redirect(URL::baseURI($backURL).URL::query());
@@ -92,14 +89,36 @@
                     VALIDATE::int($quantity) && 
                     VALIDATE::float($price)
                     ){
-                        PRODUCT::update($id, $title, $description, $quantity, $price);
+                        PRODUCT::update($id, $title, $description, $quantity, $price, $cathegory_id);
+                    }else{
+                        var_dump($cathegory_id);
+                        throw new Error("Los datos NO SON validos");
+                    }
+                URL::redirect(URL::baseURI($backURL).URL::query(unset: ["id"]));
+            break;
+            case "cathegory_delete":
+                if(VALIDATE::id($id)) CATHEGORY::delete($id);
+                URL::redirect(URL::baseURI($backURL).URL::query());
+            break;
+            case "cathegory_new":
+                if(VALIDATE::description($description)){
+                    CATHEGORY::new($description);
+                }
+                URL::redirect(URL::baseURI($backURL).URL::query());
+            break;
+            case "cathegory_update":
+                if(
+                    VALIDATE::id($id) &&
+                    VALIDATE::description($description)
+                    ){
+                        CATHEGORY::update($id, $description);
                     }else{
                         throw new Error("Los datos NO SON validos");
                     }
                 URL::redirect(URL::baseURI($backURL).URL::query(unset: ["id"]));
             break;
-            case "product_delete":
-                if(VALIDATE::id($id)) PRODUCT::delete($id);
+            case "cathegory_delete":
+                if(VALIDATE::id($id)) CATHEGORY::delete($id);
                 URL::redirect(URL::baseURI($backURL).URL::query());
             break;
             default:
